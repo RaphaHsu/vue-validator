@@ -947,7 +947,7 @@ var validators = Object.freeze({
         return filters ? this._applyFilters(val, null, filters) : val;
       } else {
         val = scope.$get(model);
-        return val === undefined || val === null ? '' : val;
+        return val === undefined || val === null ? this._init : val;
       }
     };
 

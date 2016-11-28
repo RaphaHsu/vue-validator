@@ -62,7 +62,7 @@ export default class BaseValidation {
       validator = this._validators[name] = {}
       validator.name = name
     }
-    
+
     validator.arg = arg
     if (msg) {
       validator.msg = msg
@@ -166,8 +166,8 @@ export default class BaseValidation {
               results[name] = err
             } else if (msg) {
               let error = { validator: name }
-              error.message = typeof msg === 'function' 
-                ? msg.call(this._vm, this.field, descriptor.arg) 
+              error.message = typeof msg === 'function'
+                ? msg.call(this._vm, this.field, descriptor.arg)
                 : msg
               errors.push(error)
               results[name] = error.message
@@ -266,7 +266,7 @@ export default class BaseValidation {
       return filters ? this._applyFilters(val, null, filters) : val
     } else {
       val = scope.$get(model)
-      return val === undefined || val === null ? '' : val
+      return val === undefined || val === null ? this._init : val
     }
   }
 
@@ -313,7 +313,7 @@ export default class BaseValidation {
 
   _invokeValidator (vm, validator, val, arg, cb) {
     let future = validator.call(this, val, arg)
-    if (typeof future === 'function') { // function 
+    if (typeof future === 'function') { // function
       if (future.resolved) {
         // cached
         cb(future.resolved)
